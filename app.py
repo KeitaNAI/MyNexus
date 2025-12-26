@@ -276,8 +276,9 @@ def display_news_list(news_list):
                                 elif article.text:
                                     st.warning("Summary failed. Showing article excerpt:")
                                     st.info(article.text[:400] + "...") # 本文の最初の400文字を表示
-                                else:
-                                    st.error("Could not extract text. Site might be protected.")
+# サイトの中身が取れない場合は、RSSの要約を表示する
+                                    st.warning("Site protected. Showing RSS summary:")
+                                    st.info(item.get('summary', 'No summary available.'))
                             except Exception as e:
                                 st.error(f"Could not summarize article: {e}")
 
