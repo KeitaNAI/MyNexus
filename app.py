@@ -265,7 +265,7 @@ def display_news_list(news_list):
                                 config.browser_user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
                                 config.request_timeout = 10
 
-                                article = Article(item['Link'], config=config)
+                                article = Article(item['Link'], config=config, language='ja')
                                 article.download()
                                 article.parse()
                                 article.nlp()
