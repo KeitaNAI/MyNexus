@@ -280,8 +280,9 @@ def display_news_list(news_list):
                                     st.warning("Site protected. Showing RSS summary:")
                                     st.info(item.get('summary', 'No summary available.'))
                             except Exception as e:
-                                st.error(f"Could not summarize article: {e}")
-
+                                    # エラー（アクセス拒否など）が出た場合も、RSSの要約を表示する救済措置
+                                    st.warning("Access failed (likely protected). Showing RSS summary:")
+                                    st.info(item.get('summary', 'No summary available.'))
             with col2:
                 save_key = f"save_{i}_{item['Link']}"
                 if st.button("Clip 📌", key=save_key):
