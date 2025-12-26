@@ -269,8 +269,15 @@ def display_news_list(news_list):
                                 article.download()
                                 article.parse()
                                 article.nlp()
-                                st.success("Summary Generated!")
-                                st.info(article.summary)
+# 【変更点】要約が空っぽなら、本文の冒頭を表示する「保険」をかける
+                                if article.summary:
+                                    st.success("AI Summary:")
+                                    st.info(article.summary)
+                                elif article.text:
+                                    st.warning("Summary failed. Showing article excerpt:")
+                                    st.info(article.text[:400] + "...") # 本文の最初の400文字を表示
+                                else:
+                                    st.error("Could not extract text. Site might be protected.")
                             except Exception as e:
                                 st.error(f"Could not summarize article: {e}")
 
