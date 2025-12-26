@@ -16,7 +16,7 @@ st.set_page_config(
 
 import re
 from bs4 import BeautifulSoup
-from newspaper import Article
+from newspaper import Article, Config
 import nltk
 
 # Ensure NLTK data is downloaded
@@ -260,7 +260,12 @@ def display_news_list(news_list):
                     if st.button("Deep Dive 🧠", key=f"deep_dive_{i}"):
                         with st.spinner("Analyzing article..."):
                             try:
-                                article = Article(item['Link'])
+# ユーザーエージェントを設定（ブラウザのふりをする）
+                                config = Config()
+                                config.browser_user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'
+                                config.request_timeout = 10
+
+                                article = Article(item['Link'], config=config)
                                 article.download()
                                 article.parse()
                                 article.nlp()
